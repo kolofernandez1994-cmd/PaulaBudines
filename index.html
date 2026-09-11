@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dulce Paula — Sistema de gestión</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Mono:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500;600;700&family=DM+Mono:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#fff8f4;
@@ -20,6 +20,7 @@
   --success:#4c9a6a;
   --warning:#d9a441;
   --radius:8px;
+  --font-script:'Great Vibes',cursive;
   --font-head:'Playfair Display',serif;
   --font-body:'Poppins',sans-serif;
   --font-mono:'DM Mono',monospace;
@@ -33,8 +34,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .main{margin-left:220px;flex:1;padding:2rem;min-height:100vh}
 
 .logo{padding:1.5rem 1.25rem 1.25rem;border-bottom:1px solid var(--border);background:var(--accent)}
-.logo-title{font-family:var(--font-head);font-size:28px;font-weight:400;color:#0a0a0a;letter-spacing:2px;line-height:1}
-.logo-sub{font-size:10px;color:rgba(0,0,0,0.5);margin-top:4px;font-family:var(--font-mono);letter-spacing:1px;text-transform:uppercase}
+.logo-title{font-family:var(--font-script);font-size:34px;font-weight:400;color:#fff;letter-spacing:.5px;line-height:1}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.75);margin-top:4px;font-family:var(--font-mono);letter-spacing:1px;text-transform:uppercase}
 .nav{padding:1rem 0;flex:1}
 .nav-item{display:flex;align-items:center;gap:10px;padding:10px 1.25rem;cursor:pointer;color:var(--muted);font-size:13px;font-weight:500;transition:all 0.15s;border-left:2px solid transparent;user-select:none}
 .nav-item:hover{color:var(--text);background:var(--surface2)}
@@ -48,7 +49,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
 .page-header{margin-bottom:2rem}
-.page-title{font-family:var(--font-head);font-size:42px;font-weight:400;letter-spacing:2px;line-height:1;display:flex;align-items:center;gap:15px;}
+.page-title{font-family:var(--font-script);font-size:52px;font-weight:400;letter-spacing:.5px;line-height:1;display:flex;align-items:center;gap:15px;color:var(--accent2);}
 .page-sub{color:var(--muted);font-size:13px;margin-top:4px}
 
 .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:2rem}
@@ -201,7 +202,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
 
 <div class="modal-overlay" id="login-overlay" style="display:flex">
   <div class="modal">
-    <div class="modal-title">🧁 Dulce Paula</div>
+    <div class="modal-title" style="font-family:var(--font-script);font-size:38px;color:var(--accent2)">🧁 Dulce Paula</div>
     <div class="form-group"><label class="form-label">Usuario</label><input type="text" id="login-usuario" autocomplete="username" placeholder="Usuario" onkeydown="if(event.key==='Enter') document.getElementById('login-password').focus()"></div>
     <div class="form-group"><label class="form-label">Contraseña</label><input type="password" id="login-password" autocomplete="current-password" placeholder="Contraseña" onkeydown="if(event.key==='Enter') iniciarSesion()"></div>
     <div id="login-error" style="color:var(--danger);font-size:12px;min-height:16px"></div>
@@ -260,7 +261,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
 
     <div id="dashboard" class="section active">
       <div class="dashboard-topbar">
-        <div><div class="page-title">Panel de control</div><div class="dashboard-welcome">Visión operativa de Hangar23, actualizada en tiempo real.</div></div>
+        <div><div class="page-title">Panel de control</div><div class="dashboard-welcome">Visión operativa de Dulce Paula, actualizada en tiempo real.</div></div>
         <div class="dashboard-tools">
           <div class="dashboard-search"><input id="dash-search" type="search" placeholder="Buscar cliente o producto" aria-label="Buscar en el panel"></div>
           <select id="dash-period" class="dashboard-filter" aria-label="Período del panel"><option value="today">Hoy</option><option value="week">Últimos 7 días</option><option value="month" selected>Este mes</option><option value="all">Todo el historial</option><option value="custom">Rango personalizado</option></select>
@@ -650,7 +651,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const fsDb = getFirestore(app);
 const fsAuth = getAuth(app);
-// Los usuarios se crean en Firebase con un email "de mentira" (usuario@hangar23-interno.com)
+// Los usuarios se crean en Firebase con un email "de mentira" (usuario@dulcepaula-interno.com)
 // porque el login por email/contraseña de Firebase necesita ese formato, pero en la pantalla
 // de acceso el negocio solo ve "Usuario" y "Contraseña" — el dominio interno es invisible.
 const DOMINIO_LOGIN_INTERNO = 'dulcepaula-interno.com';
@@ -1985,7 +1986,7 @@ window.cancelarEdicion = function(sec) {
 };
 
 window.imprimirComanda = function(id) { const v = window.db.ventas.find(x => x.id === id); if (!v) return; const htmlItems = (v.items || []).map(i => `<div style="margin-bottom:12px;border-bottom:1px dotted #888;padding-bottom:8px"><div style="font-size:16px"><strong>${i.qty} x ${i.burger}</strong></div>${i.extras && i.extras.length ? `<div style="font-size:13px;margin-top:4px;font-weight:bold">+ EXTRAS: ${i.extras.join(', ')}</div>` : ''}</div>`).join(''); document.getElementById('comanda-print').innerHTML = `<div style="text-align:center;margin-bottom:15px"><div style="font-family:'Playfair Display',serif;font-size:34px;margin:0;line-height:1.1">Dulce Paula</div><div style="font-size:14px;margin-top:4px">COMANDA</div></div><div style="border-top:2px dashed #000;border-bottom:2px dashed #000;padding:8px 0;margin-bottom:15px;font-size:14px"><div><strong>ID:</strong> ${v.id.slice(-5).toUpperCase()}</div><div><strong>CLIENTE:</strong> ${v.cliente.toUpperCase()}</div></div><div style="margin-bottom:15px">${htmlItems}</div><div style="border:2px solid #000;padding:8px;margin-bottom:15px"><strong style="font-size:14px">📝 NOTAS:</strong><div style="font-size:15px;font-weight:bold;margin-top:4px">${v.notas ? v.notas.toUpperCase() : 'NINGUNA'}</div></div><div style="text-align:center;font-size:12px;margin-top:20px">--- FIN DE TICKET ---</div>`; setTimeout(() => window.print(), 250); };
-window.exportarCSV = function() { if (window.db.ventas.length === 0) { window.toast('⚠ No hay ventas'); return; } let csv = "Fecha,Cliente,Detalle del Pedido,Metodo de Pago,Total Cobrado\n"; window.db.ventas.forEach(v => { csv += `${v.fecha},"${v.cliente}","${(v.items || []).map(i => `${i.qty}x ${i.burger}`).join(' + ')}",${v.pago},${v.total}\n`; }); const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' }); const link = document.createElement('a'); link.setAttribute('href', URL.createObjectURL(blob)); link.setAttribute('download', `Hangar23_Ventas_${window.getHoy()}.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link); };
+window.exportarCSV = function() { if (window.db.ventas.length === 0) { window.toast('⚠ No hay ventas'); return; } let csv = "Fecha,Cliente,Detalle del Pedido,Metodo de Pago,Total Cobrado\n"; window.db.ventas.forEach(v => { csv += `${v.fecha},"${v.cliente}","${(v.items || []).map(i => `${i.qty}x ${i.burger}`).join(' + ')}",${v.pago},${v.total}\n`; }); const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' }); const link = document.createElement('a'); link.setAttribute('href', URL.createObjectURL(blob)); link.setAttribute('download', `DulcePaula_Ventas_${window.getHoy()}.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link); };
 
 // Los filtros sólo cambian la lectura del dashboard: nunca modifican los datos.
 const dashPeriod = document.getElementById('dash-period');
